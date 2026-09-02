@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, MapPin, Mail, Info } from "lucide-react";
+import { Phone, MapPin, Mail, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CONTACT } from "@/lib/site-content";
+import { enquirySchema, submitEnquiry } from "@/lib/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -36,13 +37,6 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-/**
- * PLACEHOLDER GOOGLE FORM INTEGRATION.
- * Replace GOOGLE_FORM_URL with the client's real Google Form action URL (or embed
- * URL) and wire the field names to the form's entry.<id> keys to go live.
- */
-const GOOGLE_FORM_URL = "" as string;
-
 const enquiryTypes = [
   "General Enquiry",
   "Product Information",
@@ -52,6 +46,52 @@ const enquiryTypes = [
 
 function Contact() {
   const [enquiry, setEnquiry] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const input = {
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      company: String(fd.get("company") ?? ""),
+      subject: enquiry,
+      message: String(fd.get("message") ?? ""),
+    };
+
+    const parsed = enquirySchema.safeParse(input);
+    if (!parsed.success) {
+      const next: Record<string, string> = {};
+      for (const issue of parsed.error.issues) {
+        const key = String(issue.path[0]);
+        if (!next[key]) next[key] = issue.message;
+      }
+      setErrors(next);
+      toast.error("Please check the form", { description: "Some details need fixing." });
+      return;
+    }
+
+    setErrors({});
+    setSubmitting(true);
+    try {
+      await submitEnquiry(parsed.data);
+      toast.success("Enquiry sent", {
+        description: "Thank you — our team will get back to you shortly.",
+      });
+      form.reset();
+      setEnquiry("");
+    } catch (err) {
+      toast.error("Could not send your enquiry", {
+        description: err instanceof Error ? err.message : "Please try again in a moment.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
 
   return (
     <>
@@ -103,45 +143,41 @@ function Contact() {
           {/* Form */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-lift sm:p-10">
             <h2 className="text-2xl font-semibold text-foreground">Send an enquiry</h2>
-            <div className="mt-4 flex gap-3 rounded-xl border border-dashed border-border bg-secondary/60 p-4 text-xs leading-relaxed text-muted-foreground">
-              <Info className="mt-0.5 size-4 shrink-0" />
-              <p>
-                <strong className="font-semibold text-foreground">
-                  Placeholder Google Form integration.
-                </strong>{" "}
-                This form is a prototype UI only — submissions are not connected or stored yet. The
-                client's Google Form URL can be swapped in later.
-              </p>
-            </div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Share a few details and our team will respond as soon as possible.
+            </p>
 
-            <form
-              className="mt-7 space-y-5"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!GOOGLE_FORM_URL) {
-                  toast("Demo form — not connected", {
-                    description:
-                      "This is a placeholder. Connect the client's Google Form to receive submissions.",
-                  });
-                }
-              }}
-            >
+            <form className="mt-7 space-y-5" onSubmit={handleSubmit} noValidate>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" placeholder="Your full name" required />
+                  <Input id="name" name="name" placeholder="Your full name" maxLength={100} />
+                  {errors["name"] && <p className="text-xs text-destructive">{errors["name"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    maxLength={255}
+                  />
+                  {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" name="phone" type="tel" placeholder="+91" />
+                  <Input id="phone" name="phone" type="tel" placeholder="+91" maxLength={30} />
+                  {errors["phone"] && <p className="text-xs text-destructive">{errors["phone"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company">Company / Organization</Label>
-                  <Input id="company" name="company" placeholder="Organization name" />
+                  <Input
+                    id="company"
+                    name="company"
+                    placeholder="Organization name"
+                    maxLength={150}
+                  />
                 </div>
               </div>
 
@@ -163,13 +199,29 @@ function Contact() {
 
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" name="message" rows={5} placeholder="How can we help?" />
+                <Textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  maxLength={2000}
+                  placeholder="How can we help?"
+                />
+                {errors["message"] && (
+                  <p className="text-xs text-destructive">{errors["message"]}</p>
+                )}
               </div>
 
-              <Button type="submit" size="lg" className="w-full rounded-full">
-                Submit
+              <Button
+                type="submit"
+                size="lg"
+                disabled={submitting}
+                className="w-full rounded-full"
+              >
+                {submitting && <Loader2 className="mr-2 size-4 animate-spin" />}
+                {submitting ? "Sending…" : "Submit"}
               </Button>
             </form>
+
           </div>
         </div>
       </section>
