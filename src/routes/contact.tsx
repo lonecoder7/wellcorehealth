@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Phone, MapPin, Mail, Info } from "lucide-react";
+import { Phone, MapPin, Mail, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { PageHero } from "@/components/site/PageHero";
 import { SectionHeading } from "@/components/site/SectionHeading";
@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CONTACT } from "@/lib/site-content";
+import { enquirySchema, submitEnquiry } from "@/lib/contact";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -36,13 +37,6 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
-/**
- * PLACEHOLDER GOOGLE FORM INTEGRATION.
- * Replace GOOGLE_FORM_URL with the client's real Google Form action URL (or embed
- * URL) and wire the field names to the form's entry.<id> keys to go live.
- */
-const GOOGLE_FORM_URL = "" as string;
-
 const enquiryTypes = [
   "General Enquiry",
   "Product Information",
@@ -52,6 +46,52 @@ const enquiryTypes = [
 
 function Contact() {
   const [enquiry, setEnquiry] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const input = {
+      name: String(fd.get("name") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      company: String(fd.get("company") ?? ""),
+      subject: enquiry,
+      message: String(fd.get("message") ?? ""),
+    };
+
+    const parsed = enquirySchema.safeParse(input);
+    if (!parsed.success) {
+      const next: Record<string, string> = {};
+      for (const issue of parsed.error.issues) {
+        const key = String(issue.path[0]);
+        if (!next[key]) next[key] = issue.message;
+      }
+      setErrors(next);
+      toast.error("Please check the form", { description: "Some details need fixing." });
+      return;
+    }
+
+    setErrors({});
+    setSubmitting(true);
+    try {
+      await submitEnquiry(parsed.data);
+      toast.success("Enquiry sent", {
+        description: "Thank you — our team will get back to you shortly.",
+      });
+      form.reset();
+      setEnquiry("");
+    } catch (err) {
+      toast.error("Could not send your enquiry", {
+        description: err instanceof Error ? err.message : "Please try again in a moment.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
 
   return (
     <>
