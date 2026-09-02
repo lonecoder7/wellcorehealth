@@ -7,7 +7,7 @@ import { CtaBand } from "@/components/site/CtaBand";
 export const Route = createFileRoute("/why-wellcore")({
   head: () => ({
     meta: [
-      { title: "Why Wellcore | Wellcore Health Solutions" },
+      { title: "WellCore" },
       {
         name: "description",
         content:

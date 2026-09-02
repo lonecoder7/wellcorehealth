@@ -21,7 +21,7 @@ import { enquirySchema, submitEnquiry } from "@/lib/contact";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Wellcore Health Solutions | Coimbatore" },
+      { title: "WellCore" },
       {
         name: "description",
         content:

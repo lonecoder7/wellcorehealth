@@ -9,7 +9,7 @@ import { PILLARS } from "@/lib/site-content";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Wellcore Health Solutions | Wellness at the Core" },
+      { title: "WellCore" },
       {
         name: "description",
         content:

@@ -11,7 +11,7 @@ import { PILLARS } from "@/lib/site-content";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Wellcore Health Solutions — The Core of Better Health" },
+      { title: "WellCore" },
       {
         name: "description",
         content:
