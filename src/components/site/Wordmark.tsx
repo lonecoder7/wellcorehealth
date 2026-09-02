@@ -1,9 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/wellcore-logo.png.asset.json";
 
 /**
- * Text-based placeholder wordmark for Wellcore Health Solutions.
- * Swap for the official logo image when supplied by the client.
+ * Official Wellcore Health Solutions logo lockup.
  */
 export function Wordmark({
   tone = "dark",
@@ -13,34 +13,24 @@ export function Wordmark({
   className?: string;
 }) {
   return (
-    <Link to="/" className={cn("group inline-flex items-center gap-3", className)} aria-label="Wellcore Health Solutions — home">
+    <Link
+      to="/"
+      className={cn("group inline-flex items-center", className)}
+      aria-label="Wellcore Health Solutions — home"
+    >
       <span
         className={cn(
-          "grid size-9 place-items-center rounded-xl border font-display text-sm font-bold transition-colors",
-          tone === "light"
-            ? "border-navy-foreground/25 bg-navy-foreground/10 text-navy-foreground"
-            : "border-border bg-primary text-primary-foreground",
+          "inline-flex items-center rounded-xl transition-colors",
+          tone === "light" && "bg-navy-foreground px-3 py-2",
         )}
       >
-        W
-      </span>
-      <span className="leading-none">
-        <span
-          className={cn(
-            "block font-display text-lg font-semibold tracking-tight",
-            tone === "light" ? "text-navy-foreground" : "text-foreground",
-          )}
-        >
-          Well<span className="text-gradient-brand">core</span>
-        </span>
-        <span
-          className={cn(
-            "mt-1 block text-[0.62rem] font-medium uppercase tracking-[0.22em]",
-            tone === "light" ? "text-navy-foreground/60" : "text-muted-foreground",
-          )}
-        >
-          Health Solutions
-        </span>
+        <img
+          src={logo.url}
+          alt="Wellcore Health Solutions — The Core of Better Health"
+          className={cn("w-auto object-contain", tone === "light" ? "h-11" : "h-12 sm:h-13")}
+          loading="eager"
+          decoding="async"
+        />
       </span>
     </Link>
   );
