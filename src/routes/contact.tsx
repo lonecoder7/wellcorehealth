@@ -143,45 +143,41 @@ function Contact() {
           {/* Form */}
           <div className="rounded-3xl border border-border bg-card p-8 shadow-lift sm:p-10">
             <h2 className="text-2xl font-semibold text-foreground">Send an enquiry</h2>
-            <div className="mt-4 flex gap-3 rounded-xl border border-dashed border-border bg-secondary/60 p-4 text-xs leading-relaxed text-muted-foreground">
-              <Info className="mt-0.5 size-4 shrink-0" />
-              <p>
-                <strong className="font-semibold text-foreground">
-                  Placeholder Google Form integration.
-                </strong>{" "}
-                This form is a prototype UI only — submissions are not connected or stored yet. The
-                client's Google Form URL can be swapped in later.
-              </p>
-            </div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Share a few details and our team will respond as soon as possible.
+            </p>
 
-            <form
-              className="mt-7 space-y-5"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (!GOOGLE_FORM_URL) {
-                  toast("Demo form — not connected", {
-                    description:
-                      "This is a placeholder. Connect the client's Google Form to receive submissions.",
-                  });
-                }
-              }}
-            >
+            <form className="mt-7 space-y-5" onSubmit={handleSubmit} noValidate>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" placeholder="Your full name" required />
+                  <Input id="name" name="name" placeholder="Your full name" maxLength={100} />
+                  {errors["name"] && <p className="text-xs text-destructive">{errors["name"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" name="email" type="email" placeholder="you@example.com" required />
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    maxLength={255}
+                  />
+                  {errors["email"] && <p className="text-xs text-destructive">{errors["email"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" name="phone" type="tel" placeholder="+91" />
+                  <Input id="phone" name="phone" type="tel" placeholder="+91" maxLength={30} />
+                  {errors["phone"] && <p className="text-xs text-destructive">{errors["phone"]}</p>}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="company">Company / Organization</Label>
-                  <Input id="company" name="company" placeholder="Organization name" />
+                  <Input
+                    id="company"
+                    name="company"
+                    placeholder="Organization name"
+                    maxLength={150}
+                  />
                 </div>
               </div>
 
@@ -203,13 +199,29 @@ function Contact() {
 
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
-                <Textarea id="message" name="message" rows={5} placeholder="How can we help?" />
+                <Textarea
+                  id="message"
+                  name="message"
+                  rows={5}
+                  maxLength={2000}
+                  placeholder="How can we help?"
+                />
+                {errors["message"] && (
+                  <p className="text-xs text-destructive">{errors["message"]}</p>
+                )}
               </div>
 
-              <Button type="submit" size="lg" className="w-full rounded-full">
-                Submit
+              <Button
+                type="submit"
+                size="lg"
+                disabled={submitting}
+                className="w-full rounded-full"
+              >
+                {submitting && <Loader2 className="mr-2 size-4 animate-spin" />}
+                {submitting ? "Sending…" : "Submit"}
               </Button>
             </form>
+
           </div>
         </div>
       </section>
