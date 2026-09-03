@@ -65,6 +65,7 @@ function Products() {
               </div>
               <div>
                 <SectionHeading eyebrow={`Category 0${index + 1}`} title={cat.name} description={cat.summary} />
+                {/* Placeholder product cards — hidden for launch; restore with CATEGORIES placeholders.
                 <div className="mt-8 grid gap-4 sm:grid-cols-3">
                   {cat.placeholders.map((p, i) => (
                     <div
@@ -77,6 +78,7 @@ function Products() {
                     </div>
                   ))}
                 </div>
+                */}
               </div>
             </div>
           </div>
