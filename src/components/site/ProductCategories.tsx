@@ -9,7 +9,7 @@ export type Category = {
   name: string;
   image: string;
   summary: string;
-  placeholders: string[];
+  /*placeholders: string[];*/
 };
 
 export const CATEGORIES: Category[] = [
@@ -19,7 +19,7 @@ export const CATEGORIES: Category[] = [
     image: pharma,
     summary:
       "A growing range of pharmaceutical products selected for quality, efficacy, safety and value.",
-    placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],
+    /*placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],*/
   },
   {
     slug: "nutraceuticals",
@@ -27,7 +27,7 @@ export const CATEGORIES: Category[] = [
     image: nutra,
     summary:
       "Nutritional and supplementary offerings supporting everyday wellness and recovery needs.",
-    placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],
+    /*placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],*/
   },
   {
     slug: "cosmetics",
@@ -35,7 +35,7 @@ export const CATEGORIES: Category[] = [
     image: cosmetics,
     summary:
       "Personal care and cosmetic products presented with the same quality-first approach.",
-    placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],
+   /* placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],*/
   },
   {
     slug: "surgical-products",
@@ -43,7 +43,7 @@ export const CATEGORIES: Category[] = [
     image: surgical,
     summary:
       "Surgical items intended for professional and institutional healthcare environments.",
-    placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],
+   /* placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],*/
   },
   {
     slug: "medical-consumables",
@@ -51,7 +51,7 @@ export const CATEGORIES: Category[] = [
     image: consumables,
     summary:
       "Everyday medical consumables that support dependable, uninterrupted clinical routines.",
-    placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],
+   /* placeholders: ["Product Name — Placeholder", "Product Name — Placeholder", "Product Name — Placeholder"],*/
   },
 ];
 
