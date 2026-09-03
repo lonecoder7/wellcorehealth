@@ -73,6 +73,7 @@ function Services() {
         description="Our approach goes beyond simply marketing and distributing products. We strive to build long-term relationships through professional service, responsible business practices, dependable supply, and continuous improvement."
       />
 
+      {/* Placeholder notice — hidden for launch; uncomment when the finalised service list is ready.
       <section className="section-shell py-14">
         <div className="rounded-2xl border border-dashed border-border bg-secondary/60 px-6 py-5 text-sm text-muted-foreground">
           <strong className="font-semibold text-foreground">Placeholder notice:</strong> this section
@@ -80,6 +81,7 @@ function Services() {
           once confirmed by the client.
         </div>
       </section>
+      */}
 
       <section className="section-shell pb-20 sm:pb-28">
         <SectionHeading
@@ -98,12 +100,14 @@ function Services() {
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.body}</p>
             </div>
           ))}
+          {/* Additional service placeholder — hidden for launch; uncomment when a new service is added.
           <div className="flex flex-col justify-center rounded-2xl border border-dashed border-border bg-secondary/60 p-7">
             <p className="text-sm font-medium text-foreground">[Additional Service — Placeholder]</p>
             <p className="mt-2 text-sm text-muted-foreground">
               Reserved for client-provided service descriptions.
             </p>
           </div>
+          */}
         </div>
       </section>
 
