@@ -1,6 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { Wordmark } from "./Wordmark";
+import coin from "@/assets/raknatech-coin.png.asset.json";
+
 
 const CONTACT = {
   phone: "+91 8807224365",
@@ -92,47 +94,54 @@ export function Footer() {
 
       {/* Bottom Footer */}
       <div className="border-t border-navy-foreground/10">
-        <div className="section-shell py-8">
-          <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-
+        <div className="section-shell py-6">
+          <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
             {/* Copyright */}
             <p className="text-xs text-navy-foreground/50">
               © {new Date().getFullYear()} Wellcore Health Solutions — Wellness
               at the Core.
             </p>
 
-            {/* Right Side */}
-            <div className="flex flex-col items-start gap-5 sm:items-end">
+            {/* Legal */}
+            <div className="flex items-center gap-4 text-xs text-navy-foreground/50">
+              <span>Privacy Policy</span>
+              <span className="h-4 w-px bg-navy-foreground/20" />
+              <span>Terms of Use</span>
+            </div>
 
-              {/* Privacy / Terms */}
-              <p className="flex flex-wrap gap-5 text-xs text-navy-foreground/50">
-                <span>Privacy Policy [Placeholder]</span>
-                <span>Terms of Use [Placeholder]</span>
-              </p>
-
-              {/* RaknaTech Credit */}
+            {/* RaknaTech Credit */}
+            <div className="flex items-center gap-4">
+              <span className="hidden h-8 w-px bg-navy-foreground/15 md:block" />
               <a
                 href="https://lonecoder7.github.io/RAKNATECH/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group text-left sm:text-right"
+                className="group flex items-center gap-3"
               >
-                <span className="block text-[10px] uppercase tracking-[0.18em] text-navy-foreground/40">
-                  Designed &amp; Handcrafted by
-                </span>
-
-                <span className="mt-1 block text-sm font-semibold tracking-wide text-navy-foreground/80 transition-colors group-hover:text-primary">
-                  RaknaTech
-                  <span className="ml-1 transition-transform duration-200 group-hover:translate-x-1">
-                    →
+                <img
+                  src={coin.url}
+                  alt="RaknaTech"
+                  className="size-10 shrink-0 object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="text-left leading-tight">
+                  <span className="block text-xs text-navy-foreground/55">
+                    Designed &amp; Handcrafted by
+                  </span>
+                  <span className="mt-0.5 block text-sm font-semibold tracking-wide text-navy-foreground/85 transition-colors group-hover:text-primary">
+                    RaknaTech
+                    <span className="ml-1 inline-block transition-transform duration-200 group-hover:translate-x-1">
+                      →
+                    </span>
                   </span>
                 </span>
               </a>
-
             </div>
           </div>
         </div>
       </div>
+
     </footer>
   );
 }
