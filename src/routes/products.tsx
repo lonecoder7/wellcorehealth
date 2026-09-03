@@ -33,6 +33,7 @@ function Products() {
         description="Our portfolio encompasses pharmaceutical products, nutraceuticals, cosmetics, surgical products, and medical consumables, carefully selected with a focus on quality, efficacy, safety, and value."
       />
 
+      {/* Placeholder notice — hidden for launch; uncomment when real product cards are ready.
       <section className="section-shell py-14">
         <div className="rounded-2xl border border-dashed border-border bg-secondary/60 px-6 py-5 text-sm text-muted-foreground">
           <strong className="font-semibold text-foreground">Placeholder notice:</strong> the product
@@ -40,6 +41,7 @@ function Products() {
           will replace them once provided by the client.
         </div>
       </section>
+      */}
 
       {CATEGORIES.map((cat, index) => (
         <section
