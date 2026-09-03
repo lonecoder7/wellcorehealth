@@ -104,9 +104,19 @@ export function Footer() {
 
             {/* Legal */}
             <div className="flex items-center gap-4 text-xs text-navy-foreground/50">
-              <span>Privacy Policy</span>
+              <Link
+                to="/privacy-policy"
+                className="transition-colors hover:text-navy-foreground"
+              >
+                Privacy Policy
+              </Link>
               <span className="h-4 w-px bg-navy-foreground/20" />
-              <span>Terms of Use</span>
+              <Link
+                to="/terms-of-use"
+                className="transition-colors hover:text-navy-foreground"
+              >
+                Terms of Use
+              </Link>
             </div>
 
             {/* RaknaTech Credit */}
