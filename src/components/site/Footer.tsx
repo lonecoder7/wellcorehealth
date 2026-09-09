@@ -6,6 +6,7 @@ import coin from "@/assets/raknatech-coin.png.asset.json";
 
 const CONTACT = {
   phone: "+91 8807224365",
+  email: "wellcorehealthsolutionscbe@gmail.com",
   address:
     "5/227, A4, Srinivasa Gardens, Teachers Colony, 3rd Street, Somayampalam, Kanuvai, Coimbatore - 641 108",
 };
@@ -77,7 +78,12 @@ export function Footer() {
             <li className="flex gap-3">
               <Mail className="mt-0.5 size-4 shrink-0 text-primary" />
 
-              <span>Email: [Client Email]</span>
+              <a
+                href={`mailto:${CONTACT.email}`}
+                className="transition-colors hover:text-navy-foreground"
+              >
+                {CONTACT.email}
+              </a>
             </li>
 
             {/* Address */}

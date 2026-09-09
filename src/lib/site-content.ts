@@ -1,6 +1,7 @@
 export const CONTACT = {
   phone: "+91 8807224365",
-  emailPlaceholder: "[Client Email]",
+  email: "wellcorehealthsolutionscbe@gmail.com",
+  emailPlaceholder: "wellcorehealthsolutionscbe@gmail.com",
   address:
     "5/227, A4, Srinivasa Gardens, Teachers Colony, 3rd Street, Somayampalam, Kanuvai, Coimbatore - 641 108",
   mapEmbedSrc:

@@ -123,9 +123,12 @@ function Contact() {
                 <Mail className="mt-0.5 size-5 shrink-0 text-primary" />
                 <div>
                   <p className="text-sm font-semibold text-foreground">Email</p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Email: {CONTACT.emailPlaceholder}
-                  </p>
+                  <a
+                    href={`mailto:${CONTACT.email}`}
+                    className="mt-1 block text-sm text-muted-foreground hover:text-foreground"
+                  >
+                    {CONTACT.email}
+                  </a>
                 </div>
               </li>
               <li className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-soft">
