@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/wellcore-logo.png";
+import wellcoreLogo from "@/assets/wellcore-logo.png";
 
 /**
  * Official Wellcore Health Solutions logo lockup.
@@ -25,7 +25,7 @@ export function Wordmark({
         )}
       >
         <img
-          src={logo.url}
+          src={wellcoreLogo}
           alt="Wellcore Health Solutions — The Core of Better Health"
           className={cn("w-auto object-contain", tone === "light" ? "h-11" : "h-12 sm:h-13")}
           loading="eager"
