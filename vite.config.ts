@@ -5,7 +5,6 @@ export default defineConfig({
     server: {
       entry: "server",
     },
-
     prerender: {
       enabled: true,
       crawlLinks: true,
@@ -13,9 +12,5 @@ export default defineConfig({
       autoSubfolderIndex: true,
       failOnError: true,
     },
-  },
-
-  vite: {
-    base: "/wellcorehealth/",
   },
 });
