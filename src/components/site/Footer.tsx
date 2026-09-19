@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { Wordmark } from "./Wordmark";
-import raknatechCoin from "@/assets/raknatech-coin.png";
+import Coin from "@/assets/raknatech-coin.png";
 
 
 const CONTACT = {
