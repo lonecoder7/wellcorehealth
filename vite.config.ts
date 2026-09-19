@@ -13,4 +13,8 @@ export default defineConfig({
       failOnError: true,
     },
   },
+
+  vite: {
+    base: "/wellcorehealth/",
+  },
 });
