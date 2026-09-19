@@ -135,7 +135,7 @@ export function Footer() {
                 className="group flex items-center gap-3"
               >
                 <img
-                  src={coin.url}
+                  src={coin}
                   alt="RaknaTech"
                   className="size-10 shrink-0 object-contain"
                   loading="lazy"
