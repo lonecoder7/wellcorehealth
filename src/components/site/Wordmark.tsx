@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
-import logo from "@/assets/wellcore-logo.png";
+import wellcoreLogo from "@/assets/wellcore-logo.png";
 
 /**
  * Official Wellcore Health Solutions logo lockup.
